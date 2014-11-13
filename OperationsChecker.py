@@ -42,7 +42,7 @@ class OperationsChecker():
 
   def _validate(self, fields):
     if len(fields) != self.FIELDS_LEN or \
-                  fields[2] not in self.OPERANDS or \
+                  fields[2].strip() not in self.OPERANDS or \
                   fields[4].lower() not in ('true','false'):
        raise OperationsCheckerException('Uncorrect data format.')
 
@@ -59,7 +59,7 @@ class OperationsChecker():
 
   def _check(self,fields):
     priority = fields[4].lower()
-    operand = fields[2]
+    operand = fields[2].strip()
  
     data = self._readNumerics(fields)
 
@@ -90,7 +90,6 @@ class OperationsChecker():
       sys.stderr.write("Row: %s , Unexpected value, should be: %s\n"%(self._currentRow, result))
     elif mode == 3:
       sys.stderr.write("Row: %s , Not numeric value.\n"%(self._currentRow))
-      
 
 class OperationsCheckerException(Exception):
   pass
